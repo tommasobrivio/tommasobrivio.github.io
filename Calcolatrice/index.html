@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calcolatrice</title>
+        <style>
+            button{
+                width: 100%;
+                background-color: grey;
+                border-color: white;
+            }
+            table{
+                width:40%;
+                
+            }
+        </style>
+        <script>
+            let operazione = null;
+            function calcola(){
+                let ris = null;
+                let numero1 = document.getElementById("numero1").value;
+                let nunmero2 = document.getElementById("numero2").value;
+                
+                if(isNaN(numero1) || isNaN(numero2) || numero1 == "" || numero2 == ""){
+                    alert("Compilare i campi testo con numeri");
+                }
+                else{
+                    if(operazione == null){
+                        alert("Selezionare un operatore");
+                    }
+                    else if(operazione == "somma"){
+                        ris = parseInt(numero1) + parseInt(numero2);
+                    }
+                    else if(operazione == "divisione"){
+                        ris = numero1 / numero2;
+                    }
+                    else if(operazione == "sottrazione"){
+                        ris = numero1 - numero2;
+                    }
+                    else if(operazione == "moltiplicazione"){
+                        ris = numero1 * numero2;
+                    }
+                    document.getElementById("cella risultato").innerHTML = ris;
+                    operazione = null;
+                    document.getElementById("+").style.backgroundColor = "lightgray";
+                    document.getElementById("*").style.backgroundColor = "lightgray";
+                    document.getElementById("-").style.backgroundColor = "lightgray";
+                    document.getElementById("/").style.backgroundColor = "lightgray";
+                }
+            }
+
+            function addizione(){
+                operazione = "somma";
+                document.getElementById("+").style.backgroundColor = "red";
+                document.getElementById("*").style.backgroundColor = "lightgray";
+                document.getElementById("-").style.backgroundColor = "lightgray";
+                document.getElementById("/").style.backgroundColor = "lightgray";
+            }
+
+            function moltiplicazione(){
+                operazione = "moltiplicazione";
+                document.getElementById("*").style.backgroundColor = "red";
+                document.getElementById("+").style.backgroundColor = "lightgray";
+                document.getElementById("-").style.backgroundColor = "lightgray";
+                document.getElementById("/").style.backgroundColor = "lightgray";
+            }
+
+            function divisione(){
+                operazione = "divisione";
+                document.getElementById("/").style.backgroundColor = "red";
+                document.getElementById("+").style.backgroundColor = "lightgray";
+                document.getElementById("-").style.backgroundColor = "lightgray";
+                document.getElementById("*").style.backgroundColor = "lightgray";
+            }
+
+            function sottrazione(){
+                operazione = "sottrazione";
+                document.getElementById("-").style.backgroundColor = "red";
+                document.getElementById("+").style.backgroundColor = "lightgray";
+                document.getElementById("/").style.backgroundColor = "lightgray";
+                document.getElementById("*").style.backgroundColor = "lightgray";
+            }
+
+        </script>
+    </head>
+    <body>
+        <h1 align="center">Calcolatrice</h1>
+
+        <table align="center">
+            <tr>
+                <td>
+                    <input style="width: 50%;" id = "numero1", type = "text", align="center">
+                </td>
+                <td>
+                    <input style="width: 50%;" id = "numero2", type = "text", align="center">
+                </td>
+                <td style = "border-style: solid; border-radius: 4px;" id = "cella risultato">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" id = "+" onclick = addizione()>+</button>
+                </td>
+                <td>
+                    <button type="button" id = "-" onclick = sottrazione()>-</button>
+                </td>
+                <td>
+                    <button type="button" onclick = calcola()>=</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" id = "*" onclick = moltiplicazione()>*</button>
+                </td>
+                <td>
+                    <button type="button" id = "/" onclick = divisione()>/</button>
+                </td>
+            </tr>
+        </table>
+
+
+        <!-- ritorna alla home -->
+        <p align="center">
+            <a href="https://tommasobrivio.github.io/indexHome.html"><img src="images\casa.png" style = "width:5%;height:5%;" ></a>
+        </p>
+    </body>
+</html>     
