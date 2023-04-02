@@ -1,0 +1,28 @@
+body{
+    background-color: rgb(190, 238, 168);
+}
+table{
+    border: 4px solid;
+    border-collapse: collapse;
+    width: 20%;
+    height: 30%;
+    background-color: white;
+}
+button{
+    width: 65px;
+    height: 40px;
+    
+}
+label{
+    height: 100%;
+    text-align: right;
+
+}
+td,tr{
+    text-align: center;
+}
+#risultato{
+    background-color: lightblue;
+    text-align: right;
+    height: 35;
+}
