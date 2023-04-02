@@ -1,126 +1,53 @@
 <!DOCTYPE html>
 <html>
+
     <head>
         <title>Calcolatrice</title>
-        <style>
-            button{
-                width: 100%;
-                background-color: grey;
-                border-color: white;
-            }
-            table{
-                width:40%;
-                
-            }
-        </style>
-        <script>
-            let operazione = null;
-            function calcola(){
-                let ris = null;
-                let numero1 = document.getElementById("numero1").value;
-                let nunmero2 = document.getElementById("numero2").value;
-                
-                if(isNaN(numero1) || isNaN(numero2) || numero1 == "" || numero2 == ""){
-                    alert("Compilare i campi testo con numeri");
-                }
-                else{
-                    if(operazione == null){
-                        alert("Selezionare un operatore");
-                    }
-                    else if(operazione == "somma"){
-                        ris = parseInt(numero1) + parseInt(numero2);
-                    }
-                    else if(operazione == "divisione"){
-                        ris = numero1 / numero2;
-                    }
-                    else if(operazione == "sottrazione"){
-                        ris = numero1 - numero2;
-                    }
-                    else if(operazione == "moltiplicazione"){
-                        ris = numero1 * numero2;
-                    }
-                    document.getElementById("cella risultato").innerHTML = ris;
-                    operazione = null;
-                    document.getElementById("+").style.backgroundColor = "lightgray";
-                    document.getElementById("*").style.backgroundColor = "lightgray";
-                    document.getElementById("-").style.backgroundColor = "lightgray";
-                    document.getElementById("/").style.backgroundColor = "lightgray";
-                }
-            }
-
-            function addizione(){
-                operazione = "somma";
-                document.getElementById("+").style.backgroundColor = "red";
-                document.getElementById("*").style.backgroundColor = "lightgray";
-                document.getElementById("-").style.backgroundColor = "lightgray";
-                document.getElementById("/").style.backgroundColor = "lightgray";
-            }
-
-            function moltiplicazione(){
-                operazione = "moltiplicazione";
-                document.getElementById("*").style.backgroundColor = "red";
-                document.getElementById("+").style.backgroundColor = "lightgray";
-                document.getElementById("-").style.backgroundColor = "lightgray";
-                document.getElementById("/").style.backgroundColor = "lightgray";
-            }
-
-            function divisione(){
-                operazione = "divisione";
-                document.getElementById("/").style.backgroundColor = "red";
-                document.getElementById("+").style.backgroundColor = "lightgray";
-                document.getElementById("-").style.backgroundColor = "lightgray";
-                document.getElementById("*").style.backgroundColor = "lightgray";
-            }
-
-            function sottrazione(){
-                operazione = "sottrazione";
-                document.getElementById("-").style.backgroundColor = "red";
-                document.getElementById("+").style.backgroundColor = "lightgray";
-                document.getElementById("/").style.backgroundColor = "lightgray";
-                document.getElementById("*").style.backgroundColor = "lightgray";
-            }
-
-        </script>
+        <script src="script.js"></script> 
+        <link rel="stylesheet" href="style.css">   
     </head>
+
     <body>
-        <h1 align="center">Calcolatrice</h1>
-
         <table align="center">
-            <tr>
-                <td>
-                    <input style="width: 50%;" id = "numero1", type = "text", align="center">
-                </td>
-                <td>
-                    <input style="width: 50%;" id = "numero2", type = "text", align="center">
-                </td>
-                <td style = "border-style: solid; border-radius: 4px;" id = "cella risultato">
+            <tr style="border: 3px solid;">
+                <td colspan="4" id="risultato">
+                    <label for="label" id="schermo"></label><br>
                 </td>
             </tr>
             <tr>
-                <td>
-                    <button type="button" id = "+" onclick = addizione()>+</button>
-                </td>
-                <td>
-                    <button type="button" id = "-" onclick = sottrazione()>-</button>
-                </td>
-                <td>
-                    <button type="button" onclick = calcola()>=</button>
-                </td>
+                <td colspan="2"><button id="ce" onclick="aggiungi('CE')" style="width: 99%;">CE</button></td>
+                <td colspan="1"> <button id="c" onclick="aggiungi('C')" style="width: 99%;">C</button></td>
+                <td><button id="piu" onclick="calcolatrice.ScegliOperazione('+')">+</button></td>
             </tr>
             <tr>
-                <td>
-                    <button type="button" id = "*" onclick = moltiplicazione()>*</button>
-                </td>
-                <td>
-                    <button type="button" id = "/" onclick = divisione()>/</button>
-                </td>
+                <td><button id="uno" onclick="aggiungi(1)">1</button></td>
+                <td><button id="due" onclick="aggiungi(2)">2</button></td>
+                <td><button id="tre" onclick="aggiungi(3)">3</button></td>
+                <td><button id="meno" onclick="calcolatrice.ScegliOperazione('-')">-</button></td>
             </tr>
+            <tr>
+                <td><button id="quattro" onclick="aggiungi(4)">4</button></td>
+                <td><button id="cinque" onclick="aggiungi(5)">5</button></td>
+                <td><button id="sei" onclick="aggiungi(6)">6</button></td>
+                <td><button id="per" onclick="calcolatrice.ScegliOperazione('*')">x</button></td>
+            </tr>
+            <tr>
+                <td><button id="sette" onclick="aggiungi(7)">7</button></td>
+                <td><button id="otto" onclick="aggiungi(8)">8</button></td>
+                <td><button id="nove" onclick="aggiungi(9)">9</button></td>
+                <td><button id="diviso" onclick="calcolatrice.ScegliOperazione('/')">/</button></td>
+            </tr>
+            <tr>
+
+                <td><button onclick="aggiungi('.')">.</button></td>
+                <td><button id="due" onclick="aggiungi(0)">0</button></td>
+                <td><button id="due" onclick="calcolatrice.cambiaSegno()">+/-</button></td>
+                <td colspan="4"><button id="uguale" onclick="calcolatrice.calcola()">=</button></td>
+            </tr>
+
+
         </table>
-
-
-        <!-- ritorna alla home -->
-        <p align="center">
-            <a href="https://tommasobrivio.github.io/indexHome.html"><img src="images\casa.png" style = "width:5%;height:5%;" ></a>
-        </p>
+    
     </body>
-</html>     
+
+</html>
