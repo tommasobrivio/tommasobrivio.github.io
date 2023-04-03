@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>To Do List</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="script/CEvent.js"></script>
+        <script src="script/CList.js"></script>
+        <script>
+           list=new CList();
+        </script>
+    </head>
+    <body>
+        <div name="inputEvento">
+            <table>
+                <tr>
+                    <td><input type="date" id="data" value=""></td>
+                    <td><input type="text" name="evento" id="event" value="Inserisci attività"></td>
+                    
+                    <td><button class="input" onclick="list.add()">Add</button></td>
+                    <td><button class="input" onclick="list.rimuoviTutto()">Remove All</button></td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="listaEventi">
+          <table align="center" id="lista">
+           
+           
+          </table>
+        </div>
+
+    </body>
+</html>
