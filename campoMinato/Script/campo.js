@@ -55,7 +55,7 @@ class Campo {
         location.reload();
     }
 
-    eliminaTuttoHtml(){
+    pulisciSchermo(){
         $("#celle").html("");
     }
 
