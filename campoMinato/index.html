@@ -10,7 +10,7 @@
     <script src="Script/casella.js"></script>
     <script src="Script/campo.js"></script>
     <script type="text/javascript">
-       
+        const tempCampo=new Campo(10,10);
         function generaCampo() {
             let mine = 0;
             let righeColonne = 10;
@@ -23,6 +23,7 @@
                 mine = 20;
 
             const gioco = new Campo(righeColonne, mine);
+            gioco.pulisciSchermo();
             gioco.creaCampo();
 
             //controllo i click con il sinistro
@@ -76,7 +77,7 @@
                     </div>
                     
                     <div class="cellaSchermo" id="ripristina">
-                        <button onclick="gioco.reset()">reset</button>
+                        <button onclick="tempCampo.reset()">reset</button>
                     </div>
                     
                     <div class="cellaSchermo" id="feedback">
