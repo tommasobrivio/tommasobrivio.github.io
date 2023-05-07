@@ -85,6 +85,7 @@ class Campo {
             //se hai preso un mina
             if (this.campo[riga][colonna].isMina == true) {
                 $('.celleChiuse[data-row=' + riga + '][data-coloumn=' + colonna + ']').addClass("cellaMina");
+                alert("hai perso!!");
                 $("#feedback").text("hai perso");
                 this.isGioco = false;
                 this.visualizzaMine();
