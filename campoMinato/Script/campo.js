@@ -114,10 +114,11 @@ class Campo {
             }
 
             if(this.celleAperte == (this.grandezza*this.grandezza) - this.nMine){
+                alert("hai vinto");
                 $("#feedback").text("hai vinto!!");
                 this.visualizzaMine();
                 this.isGioco = false;
-                alert("hai vinto");
+                
             }
         }
         else
