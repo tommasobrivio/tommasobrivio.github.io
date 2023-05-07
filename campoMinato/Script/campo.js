@@ -164,6 +164,7 @@ class Campo {
             }
 
             if(this.mineTrovate == this.nMine){
+                alert("hai vinto!!");
                 this.visualizzaMine();
                 $("#feedback").text("hai vinto!!");
                 this.isGioco = false;
