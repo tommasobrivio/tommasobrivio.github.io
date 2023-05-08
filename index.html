@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>quiz</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+            let questions=[
+                {
+                    question:"Qual è la capitale dell'Italia?",
+                    answers: ["Roma", "Milano", "Napoli", "Torino"],
+                    correctAnswer: 0
+                },
+                {
+                    question: "Qual è il fiume più lungo del mondo?",
+                    answers: ["Nilo", "Amazzoni", "Yangtze", "Mississippi"],
+                    correctAnswer: 1
+                },
+                {
+                    question: "Quale prof miete più vittime?",
+                    answers: ["Bonacina", "Di Gregorio", "Macrì", "Terraneo"],
+                    correctAnswer: 2
+                }
+            ];
+            let domandaCorrente=0;
+            let punteggio=0;
+
+            $(document).ready(function(){
+                visualizzaDomanda(domandaCorrente);
+            });
+
+            function visualizzaDomanda(indice){
+                let domanda=questions[indice];
+                $("h2").text(domanda.question);
+
+                let risposte="";
+                for(let i=0;i<domanda.answers.length;i++){
+                    risposte+="<li><input type=\"radio\" name=\"answer\" value=\"" + i + "\">" +domanda.answers[i] + "</li>";
+                }
+
+                $("ul").html(risposte);
+            }
+            function checkAnswer(){
+                var userAnswer = $('input[name="answer"]:checked').val();
+                if(userAnswer == undefined){
+                    alert('Selezionare una risposta!');
+                    return;
+                }
+                var question = questions[currentQuestion];
+                if(userAnswer == question.correctAnswer){
+                    score++;
+                }
+                currentQuestion++;
+                if(currentQuestion < questions.length){
+                    loadQuestion(currentQuestion);
+                }
+                else{
+                    showResults();
+                }
+            }
+
+        </script>
+    </head>
+    <body>
+        <div id="quiz">
+            <h2></h2>
+            <ul></ul>
+            <button id="invia" >invia</button>
+        </div>
+    </body>
+</html>
