@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Document</title>
+    <script>
+        
+    </script>
+</head>
+<body>
+    <form action="server.php" method="get">
+        <h3>Inserisci o leggi dei contatti</h3><br><br>
+        Numero di telefono: <input type="text" name="telefono"/><br>
+        Nome: <input type="text" name="nome"/><br>
+        Cognome: <input type="text" name="cognome"/><br>
+        Data di nascita: <input type="text" name="data"/><br>
+        Mail: <input type="text" name="mail"/><br>
+
+        <select name="operazione">
+            <option value="" selected></option>
+            <option value="set">Aggiungi</option>
+            <option value="get">Visualizza</option>
+            <option value="cerca">Cerca</option>
+            <option value="rimuovi">Rimuovi</option>
+        </select><br><br>
+
+        <input type="submit" />
+    </form>
+</body>
+</html>
