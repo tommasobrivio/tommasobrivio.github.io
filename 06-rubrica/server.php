@@ -24,6 +24,14 @@
         $this->mail = $mail;
     }
 
+    public function toString() {
+        return $this->telefono.";".$this->nome.";".$this->cognome.";".$this->data.";".$this->mail.";";
+    }
+
+    public function getTelefono(){
+        return $this->telefono;
+    }
+
     class Rubrica{
         private $rubrica;
     }
@@ -36,15 +44,16 @@
         array_push($this->rubrica; $contatto);
     }
 
+    
+
 
 
     $fileName = "rubrica.txt";
 
-    function controllaKey($rubrica,$contact,$file){
+    function controllaKeyDoppia($rubrica,$contact,$file){
         $fileContent = file_get_contents($file);
-        $rows = explode("\n", $fileContent);
-        if (str_contains($fileContent, $newKey.";")) {
-            die("questo numero di telefono esiste gia")
+        if (str_contains($fileContent, $contact->getTelefono())) {
+            die("non puoi aggiungere perchè questo numero di telefono esiste gia");
         }
         else{
             $rubrica->aggiungi($contact);
@@ -60,85 +69,102 @@
         file_put_contents($file, $str);
     }
 
-    if (isset($_GET["cmd"])) {
-        $cmd = $_GET["cmd"];
-        if (!isset($_GET["key"]) || $_GET["key"] === "") {
-            echo "E' necessario passare la chiave.
-            Comando key=&ltchiave&gt.";
-            return;
-        }
-        $key = $_GET["key"];
+    if ($_POST["operazione"]!="") {
+        $operazione = $_POST["operazione"];
+
         // controllo se il comando è "set"
-        if ($cmd == "set") {
-            // controllo che non siano stati passati dei parametri in più
-            if (count($_GET) > 3) {
-                echo "Sono stati passati dei parametri non consentiti.";
+        if ($operazione == "set") {
+            
+            if ($_POST["telefono"]=="" || $_POST["nome"]=="" || $_POST["cognome"]==""$_POST["data"]=="" ||$_POST["mail"]=="" ) {
+                echo "Mancano dei dati";
                 return;
             }
 
-            if (isset($_GET["messaggioSet"]) && $_GET["messaggioSet"] !== "") {
-                $messaggioSet = $_GET["messaggioSet"];
-                // controllo se è già presente un messaggio con la stessa chiave, nel caso sostituisco il messaggio
-                $fileContent = file_get_contents($fileName);
-                $rows = explode("\n", $fileContent);
+            $contatto=new Contatto($_POST["telefono"],$_POST["nome"],$_POST["cognome"],$_POST["data"],$_POST["mail"]);
+            $rubrica=new Rubrica();
 
-                $tmp="";
-                if (str_contains($fileContent, $key.";")) {
-                    // ciclo per cercare la chaive e sostituire il messaggio nuovo
-                    for ($i=0; $i < count($rows); $i++) {
-                        // controllo in quale riga Ã¨ presente la chiave
-                        if (str_starts_with($rows[$i], $key.";")) {
-                            // una volta ottenuto il messaggio
-                            $message = substr($rows[$i], strlen($key) + 1);
-                            // echo $message." ".$set." ".$fileContent." ";
-                            $tmp.=$key.";".$set."\n";
-                        }
-                        else
-                            $tmp.=$rows[$i]."\n";
-                    }
-                    // infine riscrivo tutto all'interno del file sovrascrivendolo
-                    file_put_contents($fileName, $tmp);
-                }
-                else {
-                    file_put_contents($fileName, $key.";".$set."\n", FILE_APPEND);
-                }
+            controllaKeyDoppia($rubrica, $contatto, $fileName);
 
-                echo "Il messaggio ".$messaggioSet." salvato correttamente.";
+            file_put_contents($fileName, $contatto->toString()."\n", FILE_APPEND);
+        }        
+        else if ($operazione == "get") {
+            $fileContent = file_get_contents($fileName);
+            $contatti = explode("\n", $fileContent);
+            // controllo se esiste il file; se dentro al file c'è scritto qualcosa; e se la posizione della chiave esiste
+            if (!file_exists($fileName) || $fileContent === "") {
+                echo "Il file è vuoto.";
             }
-            else
-            {
-                echo "Parametro \"set\" non passato.
-                Sintassi corretta: cmd=&ltcomando&gt&set=&ltmessaggio&gt"; // '&lt' = "<" , '&gt' = ">"
+            else {
+                echo "<table><th>Numero di telefono</th><th>Nome</th><th>Cognome</th><th>Data</th><th>Email</th>";
+                for ($i=0; $i < count($contatti); $i++) {
+                    $dati=$contatti[$i].str_split(";");
+                    echo "<tr>";
+                    for($k=0;$k<count($dati);$k++){
+                        echo "<td>".$dati[$k]."</td>";
+                    }
+                    echo "</tr>";
+                }
+                echo "</table>";
             }
         }
-        else if ($cmd == "get") {
-            // controllo che non siano stati passati dei parametri in più
-            if (count($_GET) > 2) {
-                echo "Sono stati passati dei parametri non consentiti.";
+        else if($operazione == "cerca"){
+            if ($_POST["telefono"]=="" || $_POST["cognome"]=="") {
+                echo "Manca o il numero di telefono o il cognome";
                 return;
             }
             $fileContent = file_get_contents($fileName);
-            $rows = explode("\n", $fileContent);
+            $contatti = explode("\n", $fileContent);
             // controllo se esiste il file; se dentro al file c'è scritto qualcosa; e se la posizione della chiave esiste
-            if (!file_exists($fileName) || $fileContent === "" || !str_contains($fileContent, $key.";")) {
-                echo "Non è stato trovato nessun messaggio.";
+            if (!file_exists($fileName) || $fileContent === "") {
+                echo "Il file è vuoto.";
             }
-            else {
-                $message = "";
-                for ($i=0; $i < count($rows); $i++) {
-                    if (str_starts_with($rows[$i], $key)) {
-                        $message = substr($rows[$i], strlen($key) + 1);
+            if (!str_contains($fileContent, $_POST["telefono"])) {
+                echo "Non esiste questo numero di telefono tra i contatti";
+                return;
+            }
+            else{
+                for ($i=0; $i < count($contatti); $i++) {
+                    if(str_starts_with($contatti[$i], $_POST["telefono"])){
+                        echo "<table><th>Numero di telefono</th><th>Nome</th><th>Cognome</th><th>Data</th><th>Email</th><tr>";
+                        $dati=$contatti[$i].str_split(";");
+                        for($k=0;$k<count($dati);$k++){
+                            echo "<td>".$dati[$k]."</td>";
+                        }
+                        echo "</tr></table>";
                     }
                 }
-                echo "Messaggio settato precedentemente = ".$message;
             }
         }
-        else {
-        echo "Comando non riconosciuto.";
+        else if($operazione=="rimuovi"){
+            if ($_POST["telefono"]=="" || $_POST["cognome"]=="") {
+                echo "Manca o il numero di telefono o il cognome";
+                return;
+            }
+            $fileContent = file_get_contents($fileName);
+            $contatti = explode("\n", $fileContent);
+            // controllo se esiste il file; se dentro al file c'è scritto qualcosa; e se la posizione della chiave esiste
+            if (!file_exists($fileName) || $fileContent === "") {
+                echo "Il file è vuoto.";
+            }
+            if (!str_contains($fileContent, $_POST["telefono"])) {
+                echo "Non esiste questo numero di telefono tra i contatti";
+                return;
+            }
+            else{
+                $str="";
+                for ($i=0; $i < count($contatti); $i++) {
+                    if(!str_starts_with($contatti[$i], $_POST["telefono"])){
+                        $str.=$contatti[$i]."\n";
+                    }
+                }
+                file_put_contents($fileName, $str);
+                echo "Contatto eliminato";
+
+            }
         }
+
     }
     else {
-        echo "Parametro da passare \"cmd\".
-        Sintassi: cmd=&ltset/get&gt";
+        echo "Devi scegliere un' operazione";
     }
 ?>
