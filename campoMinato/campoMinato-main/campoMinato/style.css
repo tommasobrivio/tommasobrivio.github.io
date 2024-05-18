@@ -1,0 +1,86 @@
+.display{
+    display: grid;
+    grid-template-columns: auto auto;
+    width: 20%;
+	background-color: white;
+	margin: 1%;
+}
+
+h1{
+text-align: center;
+}
+
+.disp-item{
+    border: 1px solid black;
+}
+
+.div{
+	text-align: center;
+}
+
+#stato {
+	font-size: 32px;
+	text-align: center;
+	font-family: 'Roboto', sans-serif;
+	width: 22%;
+}
+
+#griglia {
+	width: 300px;
+	height: 300px;
+}
+
+.casella {
+    border: 4px outset #bbb;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-color: #ccc;
+    cursor: pointer;
+	text-align: center;
+	margin: 1px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 700;
+	font-size: 32px;
+	position: relative;
+	vertical-align: middle;
+}
+
+.casella i {
+	position: absolute;
+	transform: translate(50%,-50%);
+	top: 50%;
+	right: 50%;
+}
+
+.casella:hover {
+	background-color: #ffffff;
+}
+
+.aperta {
+	background-color: #fff;
+}
+
+.colore-1 {color: blue;}
+.colore-2 {color: green;}
+.colore-3 {color: red;}
+.colore-4 {color: purple;}
+
+.mina {
+	background-color: rgb(255,0,0);
+	color: #000;
+}
+
+.bandiera{
+	background-color: rgb(255, 251, 0);
+}
+
+body{
+	background-color: #7ed0e9;
+	margin-bottom:0%;
+}
+
+h1{
+	margin-bottom:0%;
+	margin-top:0.8%;
+}

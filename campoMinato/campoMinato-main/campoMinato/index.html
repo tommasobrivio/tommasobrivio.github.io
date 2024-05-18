@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="Script/Casella.js"></script>
+    <script src="Script/Campo.js"></script>
+    <script src="Script/Script.js"></script>
+</head>
+
+
+<body>
+    <h1>Campo Minato</h1>
+
+    <div align="center">
+        Difficoltà: <select id="difficoltà">
+            <option value="" selected></option>
+            <option value="1">Facile</option>
+            <option value="2">Medio</option>
+            <option value="3">Difficile</option>
+            <option value="4">Impossibile</option>
+        </select>
+
+        <button onclick="gestioneCampo()">Genera Campo</button>
+        <br>
+        <div align="center" class="display">
+            <div id="numMine" class="disp-item"></div>
+            <div class="disp-item"><button id="reset">Reset</button></div>
+        </div>
+        <div id="stato"></div>
+    </div>
+
+    <table align="center">
+        <tr>
+            <td>
+                <div id="griglia"></div>
+            </td>
+        </tr>
+    </table>
+
+
+
+</body>
+
+</html>
